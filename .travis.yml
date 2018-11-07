@@ -21,6 +21,7 @@ deploy:
   provider: releases
   api_key:
     secure: Ti35MrQz1lO9AzndNR39+zjD2FwPSyhBFUR3mxlBa45zrU1nNQZUh30TEm/e1bqCb0SzA2YXXB+vIrm0PAGUL752MpRPy9fr4cMAEsJplSMNMXUrsXfJeRDt5jkASw+eWwNvNpEH/xmEy3LEBKGZP2Tx77Mh2Jx7YjmN+vY6q3zRWRTVB95xzPMKthPCK64Ku9YGxSSI/wuW6R0pIO8Nk2MBfWKWGBZ+0olyrhTHPZ7JPYTjUuH7XEL1ba4j9vEYhdWSjT3Z5T1zYYy975YX3pIWVodBcVRylR4RdB6nWa2tmQl1WXG5urqScv2pfzs+8s/wo3cSKuFWIyt7O25Z9yorbgtUhXzu5UhxgC2/rVSsbqd+n3R3kV/NWz9BkGo98BTIBJWgF6Gb/7TGUflX+BLgaXNn3X3VP+OTZeldovxyPdgP0apJxpJewavtGNhVWZ/jl12ptzFnMVDZ++J6fzmcuOxuLmdGCT1NQGA9nSR/m58qOMnK22ms1U8vQ9fthZ0Fiy5N/HzWuHhzaH014rTXaAEUCPVNcolYRGeolvk0li+dspOLysEysPW3MVwCAPJZ30HZu/gemIb2i9zK9wa6V8B8tz3Z+YG9y5N28I19wnnT+Kh/KXcZ0MLuSboh95RyeSBONWwIMAhYxl3ElVh0zUvtnCR4rx1Q9lq8/kI=
+  skip_cleanup: true
   file_glob: true
   file: bin/release/netcoreapp2.1/linux-x64/publish/*
   on:
