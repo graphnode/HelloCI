@@ -5,7 +5,10 @@ dotnet: 2.1
 branches:  
   only:  
     - master
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y clang-3.9 libcurl3-dev zlib1g-dev libkrb5-dev libsdl2-2.0-0
 script:  
   - dotnet restore 
   - dotnet build
-  - dotnet publish -v d -r linux-x64 -c release
+  - dotnet publish -r linux-x64 -c release
