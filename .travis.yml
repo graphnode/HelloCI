@@ -1,15 +1,28 @@
-language: csharp 
+language: csharp
 dist: trusty
 sudo: false
 mono: none
 dotnet: 2.1
-branches:  
-  only:  
-    - master
+branches:
+  only:
+  - master
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y clang-3.9 libcurl3-dev zlib1g-dev libkrb5-dev libsdl2-2.0-0
-script:  
-  - dotnet restore 
-  - dotnet build
-  - dotnet publish -r linux-x64 -c release
+- sudo apt-get update
+- sudo apt-get install -y clang-3.9 libcurl3-dev zlib1g-dev libkrb5-dev libsdl2-2.0-0
+script:
+- dotnet restore
+- dotnet build
+- dotnet publish -r linux-x64 -c release
+before_deploy:
+- git config --local user.name "Diogo Gomes"
+- git config --local user.email "dgomes@graphnode.com"
+- git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+deploy:
+  provider: releases
+  api_key:
+    secure: nfUcQQ1SBvOpu3OEDKG/g7yz972AERQVTq83+7IiFAvDYk3m0nRuDyXyxkMlLFEpV2bfQYUxxCuzNlw6aPyzDR4YE18Q2hJfuyU5ko+IukeruyaUd0Qqw1rBV884YXb3ZmRfBLtOHBx2KTh1hNpUfFKl1fz1ZcbMobbzeFegRMGn+ObFEOVEUSwjrSea92ufu1Vn0JKxR1Emv5AHG/6e9plLXFLnGJZbAdYC0u9YaDByhg0qLUhBXbN1aizNtljNh5s6j9ghJCMr+Bl+XAOYZpPadzOjjkNnPEXMNUIffUVm0XC3s4tLOM+SFX6KZ8NDAo7qAciTrqUPhF63eIPB9+a2KU2NGcVMmj9ElFvVYDUMGpTl9SubFyMRKj5k+c6ypygzM/Vv6alBtssB7SG0VZjulZgULo2Du8QX8k8IlidSzVmsy5ULSCovMU7WKu6n2+0iVEjbZjTzwFKZY6ZgHk2Cz9Ml/psIqsIkwetGfZbvYwm0sPGCjedIVFDeAejITYoaRnZyK1mvkHX6e9L6nco00eSMH/Cq9HJ2ahkhc7OB4f+Nc8U6OhkWceORvqrN3O3w0d1k6k4CYWZ+LSg/jTafIJ5bOqEfumQupXPM0qGxVooeMk5sZqTAbdRQjXoYpPxJaOkoz6F9u3M1iZJiFPv+XmUYY8tKANYOmZyX8xY=
+  file_glob: true
+  file: bin/release/netcoreapp2.1/linux-x64/publish/*
+  skip_cleanup: true
+  on:
+    tags: true
