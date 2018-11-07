@@ -20,7 +20,7 @@ artifacts:
   name: HelloCI
 deploy:
 - provider: GitHub
-  tag: ${APPVEYOR_REPO_TAG_NAME}
+  tag: $(date +%Y%m%d)-$(git log --format=%h -1)
   auth_token:
     secure: qpEdvpJkR5kaDAqw5g/z7chnKwqLqaMYW1/yFazttmxXyBbZqxPUSPjOeexjo7uh
   repository: graphnode/HelloCI
