@@ -31,7 +31,7 @@ artifacts:
   name: HelloCI
 deploy:
 - provider: GitHub
-  tag: $(date +%Y%m%d)-$(git log --format=%h -1)
+  tag: $(APPVEYOR_BUILD_VERSION)
   auth_token:
     secure: qpEdvpJkR5kaDAqw5g/z7chnKwqLqaMYW1/yFazttmxXyBbZqxPUSPjOeexjo7uh
   repository: graphnode/HelloCI
