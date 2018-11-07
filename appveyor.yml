@@ -7,7 +7,7 @@ branches:
 image: Visual Studio 2017
 
 init:
-  - ps: Update-AppveyorBuild -Version "$(Get-Date -format yyyyMMdd)-$(APPVEYOR_REPO_COMMIT)"
+  - ps: Update-AppveyorBuild -Version "$(Get-Date -format yyyyMMdd)-$env:APPVEYOR_REPO_COMMIT"
   
 build_script:
 - sh: >-
