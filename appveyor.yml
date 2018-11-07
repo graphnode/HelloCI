@@ -2,6 +2,7 @@ version: '{build}'
 branches:
   only:
   - master
+skip_non_tags: true
 image: Visual Studio 2017
 dotnet_csproj:
   patch: true
@@ -24,12 +25,14 @@ build_script:
 
     7z.exe a "helloci-${APPVEYOR_REPO_TAG_NAME}-win64.zip" .
 artifacts:
-- path: bin\release\netcoreapp2.1\win-x64\publish\helloci-${APPVEYOR_REPO_TAG_NAME}-win64.zip
+- path: bin\release\netcoreapp2.1\win-x64\publish\helloci-$(APPVEYOR_REPO_TAG_NAME)-win64.zip
   name: HelloCI
 deploy:
 - provider: GitHub
+  tag: ${APPVEYOR_REPO_TAG_NAME}
   auth_token:
     secure: qpEdvpJkR5kaDAqw5g/z7chnKwqLqaMYW1/yFazttmxXyBbZqxPUSPjOeexjo7uh
   repository: graphnode/HelloCI
   draft: false
   prerelease: false
+  force_update: true
