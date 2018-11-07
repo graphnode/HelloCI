@@ -25,4 +25,4 @@ deploy:
   file: bin/release/netcoreapp2.1/linux-x64/publish/*
   skip_cleanup: true
   on:
-    tags: true
+    repo: graphnode/HelloCI
