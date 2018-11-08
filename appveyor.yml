@@ -38,5 +38,6 @@ deploy:
   repository: graphnode/HelloCI
   draft: false
   prerelease: false
-  force_update: true
-    
+  force_update: false
+  on:
+    branch: master    
