@@ -21,18 +21,24 @@ dotnet_csproj:
 build_script:
 - ps: >-
     dotnet restore
+
     dotnet build
+
     dotnet publish -r win-x64 -c release
 - sh: >-
     dotnet restore
+
     dotnet build
+
     dotnet publish -r linux-x64 -c release
 after_build:
 - ps: >-
     cd bin\release\netcoreapp2.1\win-x64\publish\
+
     7z.exe a "helloci-$($env:appveyor_build_version)-win-x64.zip" .
 - sh: >-
     cd bin\release\netcoreapp2.1\linux-x64\publish\
+
     7za a "helloci-$(appveyor_build_version)-linux-x64.zip" .
 test: off
 artifacts:
