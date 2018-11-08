@@ -1,11 +1,19 @@
-version: '{build}'
+version: 'pending-{build}'
 branches:
   only:
   - master
 skip_tags: true
-image: Visual Studio 2017
+image: 
+- Visual Studio 2017
+- Ubuntu
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      runtime_id: win-x64
+    - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+      runtime_id: linux-x64
 init:
-- ps: Update-AppveyorBuild -Version "$(Get-Date -format yyyyMMdd)-$($env:appveyor_repo_commit.substring(0,7))"
+- pwsh: Update-AppveyorBuild -Version "$(Get-Date -format yyyyMMdd)-$($env:appveyor_repo_commit.substring(0,7))"
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
@@ -15,20 +23,20 @@ dotnet_csproj:
   file_version: $(APPVEYOR_BUILD_VERSION)
   informational_version: $(APPVEYOR_BUILD_VERSION)
 build_script:
-- ps: >-
+- pwsh: >-
     dotnet restore
 
     dotnet build
 
-    dotnet publish -r win-x64 -c release
+    dotnet publish -r $env:runtime_id -c release
 after_build:
-- ps: >-
-    cd bin\release\netcoreapp2.1\win-x64\publish\
+- pwsh: >-
+    cd bin\release\netcoreapp2.1\$($env:runtime_id)\publish\
 
-    7z.exe a "helloci-$($env:appveyor_build_version)-win64.zip" .
+    7za a "helloci-$($env:appveyor_build_version)-$($env:runtime_id).zip" .
 test: off
 artifacts:
-- path: bin\release\netcoreapp2.1\win-x64\publish\helloci-$(APPVEYOR_BUILD_VERSION)-win64.zip
+- path: bin\release\netcoreapp2.1\win-x64\publish\helloci-$(APPVEYOR_BUILD_VERSION)-$(runtime_id).zip
   name: HelloCI
 deploy:
 - provider: GitHub
