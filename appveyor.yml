@@ -61,7 +61,7 @@ after_build:
     appveyor PushArtifact "helloci-$APPVEYOR_BUILD_VERSION-linux-x64.zip"
 
 test_script:
-- ps: "cd $env:appveyor_build_folderbin\\release\\netcoreapp2.1\\win-x64\\publish\\\n\nHelloCI.exe\n    \nif ($LastExitCode -eq 0) {\n    Add-AppveyorTest -Name \"Executing\" -Framework None -Filename HelloCI.exe -Outcome Passed\n} else {\n    Add-AppveyorTest -Name \"Executing\" -Framework None -Filename HelloCI.exe -Outcome Failed\n}"
+- ps: "cd $env:appveyor_build_folder\\bin\\release\\netcoreapp2.1\\win-x64\\publish\\\n\nHelloCI.exe\n    \nif ($LastExitCode -eq 0) {\n    Add-AppveyorTest -Name \"Executing\" -Framework None -Filename HelloCI.exe -Outcome Passed\n} else {\n    Add-AppveyorTest -Name \"Executing\" -Framework None -Filename HelloCI.exe -Outcome Failed\n}"
 
     
 - sh: >-
@@ -74,9 +74,9 @@ test_script:
     if [ $? -eq 0 ]
 
     then
-       ppveyor AddTest "Executing" -Framework None -Filename HelloCI.exe -Outcome Passed
+       appveyor AddTest "Executing" -Framework None -Filename HelloCI.exe -Outcome Passed
     else
-       ppveyor AddTest "Executing" -Framework None -Filename HelloCI.exe -Outcome Failed
+       appveyor AddTest "Executing" -Framework None -Filename HelloCI.exe -Outcome Failed
     fi
     
 deploy:
